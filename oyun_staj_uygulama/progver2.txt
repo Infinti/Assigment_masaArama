@@ -1,0 +1,92 @@
+using System;
+using System.Collections.Generic;
+
+namespace oyun_staj_uygulama
+{
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+
+            List<Object> masa_list = new List<Object>()
+            {
+                new Masa(){ masa_Id=4, bahisMik = 1000, _tip=(Masa.masaTip)2},
+                new Masa(){ masa_Id=1, bahisMik = 520, _tip=(Masa.masaTip)5},
+                new Masa(){ masa_Id=3, bahisMik = 300, _tip=(Masa.masaTip)1},
+                new Masa(){ masa_Id=2, bahisMik = 400, _tip=(Masa.masaTip)6}
+            };
+
+            Console.WriteLine("Bahis miktarını giriniz:");
+            int girilen_BahisMik = Convert.ToInt32(Console.ReadLine());
+            while (girilen_BahisMik < 200 && girilen_BahisMik > 5000)
+            {
+                Console.WriteLine("İzin verilen sınır aşıldı, lütfen bahis miktarını 200 ile 5000 arasında giriniz:");
+                girilen_BahisMik = Convert.ToInt32(Console.ReadLine());
+            }
+
+            Console.WriteLine("Masa tipini/tiplerini seçiniz...(Evet ise 'Evet', Hayır ise 'Hayır' yazınız)");
+            Console.WriteLine("Hızlı?");
+            string Hizli = Console.ReadLine();
+
+            //int sayac = 0;
+            Masa.masaTip masa_enum = (Masa.masaTip)Enum.Parse(typeof(Masa.masaTip);
+
+            if (Hizli.Equals("Evet"))
+            {
+                masa_enum = (Masa.masaTip)Enum.Parse(typeof(Masa.masaTip), Hizli);
+                //sayac += 1;
+            }
+
+            Console.WriteLine("Teke tek?");
+            string Teketek = Console.ReadLine();
+            if (Teketek.Equals("Evet"))
+            {
+                masa_enum = (Masa.masaTip)Enum.Parse(typeof(Masa.masaTip), Teketek);
+                //sayac += 2;
+            }
+
+            Console.WriteLine("Rövanş?");
+            string Rovans = Console.ReadLine();
+            if (Rovans.Equals("Evet"))
+            {
+                masa_enum = (Masa.masaTip)Enum.Parse(typeof(Masa.masaTip), Rovans);
+                //sayac += 4;
+            }
+
+            foreach (Masa masa in masa_list)
+            {
+                if (girilen_BahisMik == masa.bahisMik & _tip.HasFlag(masa_enum))
+                {
+                    Console.WriteLine("Bulunan masa numarası: ", masa.masa_Id);
+                }
+            }
+        }
+    }
+
+
+    public class Masa
+    {
+        [Flags]
+        public enum masaTip
+        {
+            Hizli = 1,
+            Teketek = 2,
+            Rovans = 4
+        }
+
+        public int masa_Id;
+        public int bahisMik;
+
+        public masaTip _tip;
+
+        string[] masaTipleri = Enum.GetNames(typeof(masaTip));
+        public Masa(int masa_Id, int bahisMik, masaTip tip)
+        {
+            this.masa_Id = masa_Id;
+            this.bahisMik = bahisMik;
+            _tip = tip;
+        }
+    }
+}
